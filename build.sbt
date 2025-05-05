@@ -9,10 +9,14 @@ lazy val root = project
     scalaVersion := scala3Version,
     libraryDependencies += "org.scalameta" %% "munit" % "1.0.0" % Test,
     Proguard / proguardVersion := "7.7.0",   
+    Proguard / proguardMerge := true,
     Proguard / proguardOptions ++= Seq(
+      "-forceprocessing",
       "-dontwarn",
+      "-dontnote",
       "-dontobfuscate",
       "-printmapping mappings.txt",
       "-keep class **"
-    )
+    ),
+    Proguard / proguardOutputs := Seq(crossTarget.value / "proguard-out.jar")
   )
